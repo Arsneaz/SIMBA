@@ -1,31 +1,36 @@
 <h1 align="center">SIMBA (Sistem Informasi Manajemen Bayi dan Imunisasi</h1>
 
-<p>Sistem Informasi untuk manajemen bayi di Desa Jati Mulyo, Lampug</p>
+<p>Sistem Informasi untuk manajemen bayi di Desa Jati Mulyo, Lampung</p>
 
 <h2>Setup App</h2>
 Do this following procedure to use this application.
 
+Prerequisite following apps to run:
+1. Composer
+2. Laravel 8.0 (Xampp)
+
+How to setup the App
 ```xml
-// Setup the app
+// Install the App
 1. Clone this repo (ZIP/http);
-2. composer require update
+2. composer install
 3. npm install
-4. npm run dev
 5. composer require filament/forms:"3.0-stable" -W
 6. Make duplicate of .env.example: run cp .env.example .env
-7. Opem the MySql server [Turn on the MySql option] (Xampp) and make a database same on the DB_DATABASE .env file.
+7. Open the MySQL server [Xampp], and makes a new database same on the DB_DATABASE in .env files.
+
+// Generating the migrate tables.
 8. php artisan key:generate
 9. php artisan migrate
    
 // For seeding the data seeder into migration database
-6. php artisan db:seed --class=WaliSeeder
-7. php artisan db:seed --class=BalitaSeeder
-8. php artisan db:seed --class=HistoriSeeder
+10. php artisan db:seed --class=WaliSeeder
+11. php artisan db:seed --class=BalitaSeeder
+12. php artisan db:seed --class=HistoriSeeder
 
 // Run the application
-9. php artisan serve
+13. php artisan serve
 ```
-
 
 <h3>Notes</h3>
 

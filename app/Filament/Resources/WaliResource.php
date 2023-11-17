@@ -77,7 +77,8 @@ class WaliResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('phone_number')
                     ->label('Nomor Telepon')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -107,7 +108,7 @@ class WaliResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\BalitasRelationManager::class
         ];
     }
 
