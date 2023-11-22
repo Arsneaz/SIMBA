@@ -15,6 +15,8 @@ class Histori extends Model
         "date_record",
         "weight_balita",
         "height_balita",
+        "head_circumference",
+        "arm_circumference",
         "type_immunization",
         "type_vitamins"
     ];

@@ -18,6 +18,8 @@ class HistoriSeeder extends Seeder
                 'date_record' => $faker->date($format = 'Y-m-d', $max = 'now'),
                 'weight_balita' => $faker->randomFloat(1, 2, 10), // Generates a weight between 2 and 10 kg
                 'height_balita' => $faker->randomFloat(1, 60, 100), // Generates a height between 60 and 100 cm
+                'arm_circumference' => $faker->randomFloat(1, 10, 15),
+                'head_circumference' => $faker->randomFloat(1, 30, 40),
                 'type_immunization' => $faker->randomElement(['HB', 'Polio', 'MMR', 'DPT']),
                 'type_vitamins' => $faker->randomElement(['A', 'B', 'C', 'D']),
             ]);

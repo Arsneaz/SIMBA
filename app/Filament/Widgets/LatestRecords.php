@@ -1,34 +1,25 @@
 <?php
 
-namespace App\Filament\Resources\BalitaResource\RelationManagers;
+namespace App\Filament\Widgets;
 
-use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\RelationManagers\RelationManager;
+use App\Models\Histori;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Widgets\TableWidget as BaseWidget;
 use Carbon\Carbon;
 
-class HistorisRelationManager extends RelationManager
+class LatestRecords extends BaseWidget
 {
-    protected static string $relationship = 'historis';
+    protected static ?int $sort = 4;
 
-    public function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('date_record')
-                    ->required()
-                    ->maxLength(255),
-            ]);
-    }
+    protected int | string | array $columnSpan = 'full';
 
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('date_record')
+            ->query(Histori::query())
+            ->defaultSort('created_at', 'desc')
+            ->defaultPaginationPageOption(5)
             ->columns([
                 Tables\Columns\TextColumn::make('balita.name_balita')
                     ->label('Nama balita')
@@ -51,14 +42,6 @@ class HistorisRelationManager extends RelationManager
                     ->numeric()
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('head_circumference')
-                    ->label('Lingkar Kepala (cm)')
-                    ->numeric()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('arm_circumference')
-                    ->label('Lingkar Lengan (cm)')
-                    ->numeric()
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('type_immunization')
                     ->label('Jenis imunisasi')
                     ->searchable()
@@ -71,24 +54,6 @@ class HistorisRelationManager extends RelationManager
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-            ])
-            ->filters([
-                //
-            ])
-            ->headerActions([
-                Tables\Actions\CreateAction::make(),
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ])
-            ->emptyStateActions([
-                Tables\Actions\CreateAction::make(),
             ]);
     }
 }

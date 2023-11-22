@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('balitas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('wali_id')->constrained('walis')->cascadeOnDelete();
+            $table->string('nik',16);
             $table->string('name_balita');
             $table->char('gender');
             $table->date('date_of_birth');

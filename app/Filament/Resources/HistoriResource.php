@@ -10,6 +10,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -30,14 +31,14 @@ class HistoriResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make('Record Data Balita')
-                    ->schema([
-                        Forms\Components\Select::make('balita_id')
-                            ->label('Nama balita')
-                            ->relationship(name: 'balita', titleAttribute: 'name_balita')
-                            ->searchable()
-                            ->preload()
-                            ->columnSpan(2),
-                    ])->columns(2),
+                        ->schema([
+                            Forms\Components\Select::make('balita_id')
+                                ->label('Nama balita')
+                                ->relationship(name: 'balita', titleAttribute: 'name_balita')
+                                ->searchable()
+                                ->preload()
+                                ->columnSpan(2),
+                        ])->columns(2),
                 Forms\Components\DateTimePicker::make('date_record')
                     ->label('Tanggal Pemerisksaan')
                     ->displayFormat('d/m/Y')
@@ -50,12 +51,50 @@ class HistoriResource extends Resource
                     ->label('Tinggi Balita (cm)')
                     ->required()
                     ->numeric(),
-                Forms\Components\TextInput::make('type_immunization')
+                Forms\Components\TextInput::make('arm_circumference')
+                    ->label('Lingkar Lengan (cm)')
+                    ->numeric()
+                    ->default("-"),
+                Forms\Components\TextInput::make('head_circumference')
+                    ->label('Lingkar Kepala (cm)')
+                    ->numeric()
+                    ->default("-"),
+                Forms\Components\Select::make('type_immunization')
                     ->label('Tipe Imunisasi')
-                    ->required(),
-                Forms\Components\TextInput::make('type_vitamins')
-                    ->label('Tipe Vitamin')
-                    ->required()
+                    ->options([
+                        'Hepatitis B' => 'Hepatitis B',
+                        'BCG' => 'BCG',
+                        'Polio Tetes 1' => 'Polio Tetes 1',
+                        'DPT-HB-Hib 1' => 'DPT-HB-Hib 1',
+                        'Polio Tetes 2' => 'Polio Tetes 2',
+                        'Rota Virus (RV)1' => 'Rota virus (RV)1',
+                        'PVC 1' => 'PCV 1',
+                        'DPT-HB-Hib 2' => 'DPT-HB-Hib 2',
+                        'Polio Tetes 3' => 'Polio Tetes 3',
+                        'Rota Virus (RV)2' => 'Rota virus (RV)2',
+                        'PVC2' => 'PV2',
+                        'DPT-HB-Hib 3' => 'DPT-HB-Hib 3',
+                        'Polio Tetes 4' => 'Polio Tetes 4',
+                        'Polio Suntik (IPV) 1' => 'Polio Suntik (IPV) 1',
+                        'Rota Virus (RV) 3' => 'Rota virus (RV) 3',
+                        'Compak-Rubella (MR)' => 'Compak-Rubella (MR)',
+                        'Polio Suntik (IPV) 2' => 'Polio Suntik (IPV) 2',
+                        'Japanese Encephalitis (JE)' => 'Japanese Encephalitis (JE)',
+                        'PVC 3' => 'PVC 3',
+                        'DPT-HB-Hib Lanjutan' => 'DPT-HB-Hib Lanjutan',
+                        'Campak-Rubella (MR) Lanjutan' => 'Campak-Rubella (MR) Lanjutan',
+                        ])
+                        ->default("-")
+                        ->searchable()
+                        ->required(),
+                Forms\Components\Select::make('type_vitamins')
+                    ->label('Obat Tambahan')
+                    ->default("-")
+                    ->options([
+                        'Vitamin A' => 'Vitamin A',
+                        'Obat Cacing' => 'Obat Cacing',
+                    ])
+                    ->native(false)
             ]);
     }
 
@@ -71,6 +110,9 @@ class HistoriResource extends Resource
                     ->label('Tanggal Pemeriksaan')
                     ->date()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('days_since_date_record')
+                    ->label('Hari Sejak Pemeriksaan')
+                    ->getStateUsing(fn ($record) => Carbon::parse($record->date_record)->diffInDays(Carbon::now()).' hari'),
                 Tables\Columns\TextColumn::make('weight_balita')
                     ->label('Berat Balita (Kg)')
                     ->numeric()
@@ -81,6 +123,14 @@ class HistoriResource extends Resource
                     ->numeric()
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('head_circumference')
+                    ->label('Lingkar Kepala (cm)')
+                    ->numeric()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('arm_circumference')
+                    ->label('Lingkar Lengan (cm)')
+                    ->numeric()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('type_immunization')
                     ->label('Jenis imunisasi')
                     ->searchable()

@@ -14,6 +14,7 @@ class Balita extends Model
 
     protected $fillable = [
         "wali_id",
+        "nik",
         "name_balita",
         "gender",
         "date_of_birth",

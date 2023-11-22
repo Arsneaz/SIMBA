@@ -45,6 +45,10 @@ class BalitaResource extends Resource
                     ])->columns(2),
                 Forms\Components\Section::make('Biodata Balita')
                     ->schema([
+                        Forms\Components\TextInput::make('nik')
+                            ->label('NIK Balita')
+                            ->required()
+                            ->maxLength(16),
                         Forms\Components\TextInput::make('name_balita')
                             ->label('Nama balita')
                             ->required()
@@ -68,6 +72,12 @@ class BalitaResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('nik')
+                    ->label('NIK Balita')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('wali.name_parent')
+                    ->label('Nama Wali')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('name_balita')
                     ->label('Nama balita')
                     ->sortable()
