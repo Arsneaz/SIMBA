@@ -16,8 +16,10 @@ class BalitaSeeder extends Seeder
             DB::table('balitas')->insert([
                 'wali_id' => $faker->numberBetween(1, 50), // Assuming 50 parents in the wali table
                 'name_balita' => $faker->name,
+                'nik' => $faker->nik,
                 'gender' => $faker->randomElement(['L', 'P']),
-                'date_of_birth' => $faker->date($format = 'Y-m-d', $max = 'now'),
+                'date_of_birth' => $faker->date($format = 'Y-m-d', $max = 'now')
+                ,
             ]);
         }
     }

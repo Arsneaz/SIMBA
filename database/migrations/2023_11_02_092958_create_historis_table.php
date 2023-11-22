@@ -17,7 +17,9 @@ return new class extends Migration
             $table->date('date_record');
             $table->char('weight_balita');
             $table->char('height_balita');
-            $table->char('type_imunization');
+            $table->char('head_circumference');
+            $table->char('arm_circumference');
+            $table->char('type_immunization');
             $table->char('type_vitamins');
             $table->timestamps();
         });
