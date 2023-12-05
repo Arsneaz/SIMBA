@@ -18,7 +18,7 @@ SIMBA adlalah sebuah sistem informasi berbasis CMS (_Content Management System_)
 ### Pre-requisite
 Sebelum menggunakan aplikasi ini, pastikan anda telah menginstal pra-syarat berikut
 1. [Composer](https://getcomposer.org/)
-2. [Laravel & PHP Minimal 8.0](https://www.apachefriends.org/download.html)
+3. [Laravel & PHP Minimal 8.0](https://www.apachefriends.org/download.html)
 
 ### Installation
 Berikut adalah cara untuk melakukan Installasi SIMBA, adapun berikut adalah video untuk installasi _laravel project_ secara umum
@@ -26,12 +26,12 @@ melalui link berikut [Youtube](https://www.youtube.com/watch?v=KrsicG8gfVg)
 1. Clone repo berikut (ZIP/http)
 
 Setup Composer dan Filament: 
-1. Open folder tersebut melalui `bash`/`cmd`dan lakukan **command** berikut
-2. `composer install`
-3. `npm install`
-4. `composer require filament/forms:"3.0-stable" -W`
-5. `cp .env.example .env`
-6. `code .` (atau buka folder tersebut lewat code editor masing-masing)
+1. Open folder tersebut melalui `bash`/`cmd` dan lakukan **command** berikut
+3. `composer require filament/forms:"3.0-stable" -W`
+4. `composer update`
+5. `npm install` [Optional jika ada Node.js]
+6. `cp .env.example .env` [Copy .env.example lalu rename menjadi .env]
+7. `code .` (atau buka folder tersebut lewat code editor masing-masing)
 
 Buka `Xampp Control Panel` dan jalankan module `Apache` dan `MySQL`:
 1. Buka `localhost/phpmyadmin` dan buat database baru dengan nama berdasarkan baris `DB_DATABASE` in dalam file `.env` 
@@ -48,8 +48,41 @@ Setup data seeder jika diperlukan (**optional**)
 Jalankan aplikasi berikut dalam terminal code editor:
 1. `php artisan serve`
 
+### Setup Virtual Host untuk SIMBA
+Untuk melakukan konfigurasi Virtual Host pada sistem informasi SIMBA berikut lakukan langkah berikut, [Reference](https://gist.github.com/bradtraversy/7485f928e3e8f08ee6bccbe0a681a821#restart-apache-with-the-xampp-panel).    
+**Edit Hosts File (buka dengan mode admin)**
+1. Windows - C:/Windows/System32/drivers/etc/hosts
+Tambahkan baris berikut dibawah sebagai virtual host nanti
+```xml
+127.0.0.1	simba.local 
+```
+**Edit Virtual Host File**
+1. Windows - C:/xampp/apache/conf/extra/httpd-vhosts.conf
+```xml
+<VirtualHost *:80>
+	DocumentRoot "C:/xampp/htdocs/SIMBA/public"
+	ServerName simba.local
+    <Directory "C:/xampp/htdocs/SIMBA/public">
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
+```
+
+**Restart the Apache Server dengan Xampp Panel**    
+- Lalu buka [http://simba.local](http://simba.local) di dalam browser untuk menggunakan sistem informasi ini.
+
+**Jika masih belum bekerja, pastikan untuk mengaktifkan `Virtual Hosts File` didalam `httpd.conf`**
+1. Windows - C:/xampp/apache/conf/httpd.conf
+dan pastikan baris kode ini sudah ada.
+```
+# Virtual hosts
+Include conf/extra/httpd-vhosts.conf
+```
+
 ## Contributing
-Applikasi ini masih jauh dari kata sempurna, dan Segala bentuk kontribusi akan sangat dihargai, _feel free_ to fork this project and customized this project at _your own will_, don't forget to pull a request on this project and make this projects better.
+Applikasi ini masih jauh dari kata sempurna, dan Segala bentuk kontribusi akan sangat dihargai, _feel free_ to fork this project and customized this project at _your own will_, don't forget to pull a request on this project and make this projects better.    
+**This projects are based on Windows, configuration setup for Mac / Linux are different but it still share the same principle.**
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
