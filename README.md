@@ -18,12 +18,19 @@ SIMBA adlalah sebuah sistem informasi berbasis CMS (_Content Management System_)
 ### Pre-requisite
 Sebelum menggunakan aplikasi ini, pastikan anda telah menginstal pra-syarat berikut
 1. [Composer](https://getcomposer.org/)
-3. [Laravel & PHP Minimal 8.0](https://www.apachefriends.org/download.html)
+2. [Laravel & PHP Minimal 8.0](https://www.apachefriends.org/download.html)
+3. [Visual Studio Code / Code Editor](https://code.visualstudio.com/)
+4. [Git](https://git-scm.com/)
+5. [Node.js](https://nodejs.org/en/download)
 
 ### Installation
 Berikut adalah cara untuk melakukan Installasi SIMBA, adapun berikut adalah video untuk installasi _laravel project_ secara umum
 melalui link berikut [Youtube](https://www.youtube.com/watch?v=KrsicG8gfVg)
 1. Clone repo berikut (ZIP/http)
+```xml
+// Didalam folder (default di dalam folder C:/xampp/htdocs)
+git clone https://github.com/Arsneaz/SIMBA.git 
+```
 
 Setup Composer dan Filament: 
 1. Open folder tersebut melalui `bash`/`cmd` dan lakukan **command** berikut
@@ -60,8 +67,10 @@ Tambahkan baris berikut dibawah sebagai virtual host nanti
 1. Windows - C:/xampp/apache/conf/extra/httpd-vhosts.conf
 ```xml
 <VirtualHost *:80>
-	DocumentRoot "C:/xampp/htdocs/SIMBA/public"
+    # (Path folder ke dalam project simba)
+	DocumentRoot "C:/xampp/htdocs/SIMBA/public" 
 	ServerName simba.local
+    # (Path folder ke dalam project simba)
     <Directory "C:/xampp/htdocs/SIMBA/public">
         AllowOverride All
         Require all granted
